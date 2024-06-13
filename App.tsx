@@ -24,7 +24,7 @@ export default function App() {
   return (
     <TamaguiProvider config={tamaguiConfig}>
      <Stack alignItems="center" justifyContent='center' width='100%' >
-      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40 }}>wow I just centered this shit right here woohoo!!</Text>      
+      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40, padding:20 }}>Centering Shit</Text>      
       </Stack>
       <LoginForm />
     </TamaguiProvider>

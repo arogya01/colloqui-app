@@ -7,11 +7,11 @@ const LoginForm = () => {
   const theme = useTheme();
 
   return (
-    <Stack justifyContent="center" alignItems="center" p="$4">
+    <Stack justifyContent="center" alignItems="center" padding="$4">
       <YStack background="$background" borderRadius="$4" padding="$4" maxWidth="300px">
         <Text theme="heading">Welcome back</Text>
         <Text theme="label">Please enter your details to sign in.</Text>
-        <XStack ai="center" jc="center" space="$2">
+        <XStack alignItems="center" justifyContent="center">
           <Button  theme="button">
             <Text>Apple Icon</Text>
           </Button>
@@ -25,7 +25,7 @@ const LoginForm = () => {
         <Text theme="label">OR</Text>
         <TextInput  placeholder="Enter your email..." />
         <TextInput  placeholder="Password" secureTextEntry />
-        <XStack ai="center" jc="space-between" space="$4">
+        <XStack alignItems="center" justifyContent="space-between" padding="$4">
           <Button theme="checkbox" size="$4">
             <Text>Checkbox Icon</Text>
           </Button>
