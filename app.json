@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "colloqui-app",
-    "slug": "colloqui-app",
+    "name": "colloqui",
+    "slug": "colloqui",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.jpeg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -27,7 +27,9 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-router"
     ]
-  }
+  },
+  "scheme":"colloqui"
 }
