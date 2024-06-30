@@ -3,12 +3,16 @@ import { TextInput } from "react-native";
 import { Stack, XStack, YStack, Button, Text, View, Input } from "tamagui";
 import TextField from "../../components/TextField";
 import { Link } from "expo-router";
+import { colors } from "../../theme";
 
 const LoginForm = () => {
   return (
     <Stack
-      backgroundColor='$black'
+      backgroundColor={colors.primaryBlack}
       justifyContent='center'
+      // borderWidth='1px'
+      // borderColor={colors.primaryWhite}
+      // borderStyle='solid'
       height='100%'
       alignItems='center'
       padding='$4'
@@ -18,24 +22,22 @@ const LoginForm = () => {
         borderRadius='$4'
         padding='$4'
         maxWidth='300px'
+        alignItems='center'
       >
-        <Text theme='heading'>Welcome back</Text>
-        <Text theme='label'>Please enter your details to sign in.</Text>
-        <XStack
-          gap='$2'
-          alignItems='center'
-          justifyContent='center'
-          padding='$4'
-        >
-          <Button theme='button'>
-            <Text>Google</Text>
-          </Button>
-        </XStack>
-        <Text theme='label'>OR</Text>
-        <YStack padding='$4'>
+        <Text fontWeight='400' color='white'>
+          Welcome back
+        </Text>
+        <Text fontWeight='400' color='white'>
+          Please enter your details to sign in.
+        </Text>
+        <YStack width='100px'>
+          <Text color={colors.primary}>Email</Text>
           <TextField placeholder='Enter your email' />
         </YStack>
-        <TextField placeholder='Enter your password' secureTextEntry />
+        <YStack>
+          <Text color={colors.primary}>Password</Text>
+          <TextField placeholder='Enter your password' secureTextEntry />
+        </YStack>
         <XStack
           gap='$4'
           alignItems='center'
