@@ -28,8 +28,9 @@
     },
     "plugins": [
       "expo-font",
-      "expo-router"
+      "expo-router",
+      "expo-secure-store"
     ]
   },
-  "scheme":"colloqui"
+  "scheme": "colloqui"
 }

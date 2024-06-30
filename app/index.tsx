@@ -1,16 +1,17 @@
 import React from "react";
 import { createTamagui, TamaguiProvider } from "@tamagui/core";
-import { View, Text } from "react-native";
 import { config } from "@tamagui/config/v3";
 import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
 import LoginForm from "../src/modules/loginForm";
+import appConfig from "../tamagui.config";
 // import {customConfig} from "./theme"
 
-const tamaguiConfig = createTamagui(config);
+const tamaguiConfig = createTamagui({ ...config, appConfig });
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
-    Inter_900Black,
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
 
   if (!fontsLoaded && !fontError) {
@@ -19,9 +20,6 @@ export default function App() {
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
-      <View>
-        <Text>arogya</Text>
-      </View>
       <LoginForm />
     </TamaguiProvider>
   );
