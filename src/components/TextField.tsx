@@ -13,8 +13,7 @@ const TextField = ({ containerPadding = "$4", ...props }: CustomInputProps) => {
         borderWidth={1}
         borderColor='$gray400'
         borderRadius='$2'
-        paddingHorizontal='$3'
-        marginVertical='$2'
+        paddingHorizontal='$3'        
         placeholderTextColor='$gray500'
         fontSize='$2'
         backgroundColor='$background'

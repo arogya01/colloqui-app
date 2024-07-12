@@ -5,6 +5,7 @@ import { Link } from "expo-router";
 import { colors } from "../../theme";
 
 const LoginForm = () => {
+  console.log("loginForm")
   return (
     <Stack
       backgroundColor={colors.primaryBlack}
@@ -18,18 +19,15 @@ const LoginForm = () => {
         borderRadius='$4'
         padding='$4'
         maxWidth='300px'
-      >
-        <Text fontWeight='400' >
-          Welcome back
-        </Text>
-        <YStack  width='200'>
-          <Text padding='$0' color={colors.primary}>Email</Text>
-          <TextField margin="$0" width="200px" padding='$0' placeholder='Enter your email' />
-        </YStack>
-        <YStack>
+      >        
+        <Stack justifyContent="flex-start">
+          <Text padding='$0' height="10px" margin="$0" color={colors.primary}>Email</Text>
+          <TextField margin="$0" height="28px" width="200px" padding='$2' placeholder='Enter your email' />
+        </Stack>
+        <Stack>
           <Text color={colors.primary}>Password</Text>
-          <TextField placeholder='Enter your password' secureTextEntry />
-        </YStack>
+          <TextField height="28px" width="200px" padding='$2'  placeholder='Enter your password' secureTextEntry />
+        </Stack>
         <View display='flex' gap='$4'>
           <Button theme='primary'>
             <Text>Sign in</Text>
@@ -37,8 +35,12 @@ const LoginForm = () => {
           <Button>
             <Link href='/signup'>Don't have an account yet? Sign Up</Link>
           </Button>
+          <Button>
+            <Link href='/chat'>Chat Screen</Link>
+          </Button>
         </View>
       </YStack>
+      
     </Stack>
   );
 };
