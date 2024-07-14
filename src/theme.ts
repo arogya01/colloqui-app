@@ -6,5 +6,5 @@ export const colors = {
     primaryWhite:"#FFFFFF",
     crimson:"#DC143C", 
     tomato:"#FF6347", 
-    notQuiteBlack:"#23272A",
+    notQuiteBlack:"#212121",
 }
