@@ -5,42 +5,55 @@ import { Link } from "expo-router";
 import { colors } from "../../theme";
 
 const LoginForm = () => {
-  console.log("loginForm")
   return (
-    <Stack
+    <Stack 
+      gap="$2"
       backgroundColor={colors.primaryBlack}
-      justifyContent='center'
-      height='100%'
-      alignItems='center'
-      padding='$4'
+      justifyContent="center"
+      height="100%"
+      width="100%"
+      alignItems="stretch"
+      padding="$4"
     >
       <YStack
         backgroundColor={colors.primaryWhite}
-        borderRadius='$4'
-        padding='$4'
-        maxWidth='300px'
-      >        
-        <Stack justifyContent="flex-start">
-          <Text padding='$0' height="10px" margin="$0" color={colors.primary}>Email</Text>
-          <TextField margin="$0" height="28px" width="200px" padding='$2' placeholder='Enter your email' />
+        borderRadius="$4"
+        padding="$4"
+        width="300px"
+      >
+        <Stack gap="$2" marginVertical="$2">
+          <Text  color={colors.primary}>Email</Text>
+          <TextField
+          containerPadding="$1"
+            height="40px"
+            width="100%"
+            padding="$2"
+            placeholder="Enter your email"
+          />
         </Stack>
-        <Stack>
+        <Stack gap="$2" marginVertical="$2">
           <Text color={colors.primary}>Password</Text>
-          <TextField height="28px" width="200px" padding='$2'  placeholder='Enter your password' secureTextEntry />
+          <TextField
+            containerPadding="$1"
+            height="40px"
+            width="100%"
+            padding="$2"
+            placeholder="Enter your password"
+            secureTextEntry
+          />
         </Stack>
-        <View display='flex' gap='$4'>
-          <Button theme='primary'>
+        <Stack  alignItems="stretch">
+          <Button padding="$2" marginVertical="$2" height="40px">
             <Text>Sign in</Text>
           </Button>
-          <Button>
-            <Link href='/signup'>Don't have an account yet? Sign Up</Link>
+          <Button padding="$2" marginVertical="$2" height="40px" color={colors.primary}>
+            <Link href="/signup">Signup Boss</Link>
           </Button>
-          <Button>
-            <Link href='/chat'>Chat Screen</Link>
+          <Button padding="$2" marginVertical="$2" height="40px" color={colors.primary}>
+            <Link href="/chat">Chat Screen</Link>
           </Button>
-        </View>
+        </Stack>
       </YStack>
-      
     </Stack>
   );
 };
