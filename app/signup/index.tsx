@@ -1,12 +1,8 @@
 import React from "react";
-import { Text, View } from "react-native";
+import SignupForm from "../../src/modules/signup/index"
 
 const Signup = () => {
-  return (
-    <View>
-      <Text>Signup-1</Text>
-    </View>
-  );
+  return <SignupForm />
 };
 
 export default Signup;

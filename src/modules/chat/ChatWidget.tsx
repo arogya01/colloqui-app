@@ -22,11 +22,6 @@ const ChatWidget = ({
       backgroundColor={colors.notQuiteBlack}
       alignItems="center"
     >
-      {/* <Avatar circular size="$4" backgroundColor="$purple300">
-        <Avatar.Image src={avatarUrl} />
-        <Avatar.Fallback backgroundColor="$purple300" />
-      </Avatar> */}
-
       <YStack flex={1}>
         <Text color="white" fontSize="$4" fontWeight="bold">
           {name}

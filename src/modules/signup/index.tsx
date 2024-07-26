@@ -43,7 +43,6 @@ const SignupForm = () => {
 
   return (
     <SafeAreaView>
-    
       <Stack 
         backgroundColor={colors.primaryBlack}
         justifyContent="center"
@@ -77,7 +76,6 @@ const SignupForm = () => {
               </Stack>
             )}
           />
-
           <Controller
             control={control}
             name="password"
