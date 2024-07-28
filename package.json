@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@tamagui/config": "^1.100.3",
     "@tamagui/lucide-icons": "^1.102.1",
+    "@tanstack/react-query": "^5.51.15",
     "expo": "^51.0.12",
     "expo-constants": "~16.0.2",
     "expo-font": "~12.0.7",
