@@ -46,7 +46,7 @@ const LoginForm = () => {
           <Button padding="$2" marginVertical="$2" height="40px">
             <Text>Sign in</Text>
           </Button>
-          <Button padding="$2" marginVertical="$2" height="40px" color={colors.primary}>
+          <Button padding="$3" marginVertical="$2" height="40px" color={colors.primary}>
             <Link href="/signup">Signup Boss</Link>
           </Button>
           <Button padding="$2" marginVertical="$2" height="40px" color={colors.primary}>

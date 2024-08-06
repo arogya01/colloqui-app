@@ -7,6 +7,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { SafeAreaView } from "react-native";
+import { useCreateUser } from "../../hooks/services/useCreateUser";
+import Toast from "react-native-toast-message";
 
 const signupSchema = z.object({
   email: z.string().email({
@@ -36,9 +38,31 @@ const SignupForm = () => {
     },
   });
 
+  const {mutate, isPending} = useCreateUser();
+
+  console.log('why is signup not render');
+
   const onSubmit = (data) => {
     console.log(data);
     // Handle form submission here
+    try{
+    mutate(data,{
+      onSuccess: (data) => {
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "User created"
+        });
+      }
+    });
+  }
+  catch(error){
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      // text2: error.message
+    });
+  }
   };
 
   return (
@@ -181,7 +205,7 @@ const SignupForm = () => {
 
           <Stack alignItems="stretch">
             <Button padding="$2" marginVertical="$2" height="40px" onPress={handleSubmit(onSubmit)}>
-              <Text>Sign up</Text>
+            <Text>{isPending ? "Signing Up": "Sign up"}</Text>
             </Button>
             <Button padding="$2" marginVertical="$2" height="40px" color={colors.primary}>
               <Link href="/">Back to Login</Link>

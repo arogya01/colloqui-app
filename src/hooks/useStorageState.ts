@@ -4,6 +4,11 @@ import { Platform } from 'react-native';
 
 type UseStateHook<T> = [[boolean, T | null], (value: T | null) => void];
 
+// this file is exponsing three funcs/hooks 
+// 1. useAsyncState
+// 2. setStorageItemAsync
+// 3. useStorageState
+
 function useAsyncState<T>(
   initialValue: [boolean, T | null] = [true, null],
 ): UseStateHook<T> {
