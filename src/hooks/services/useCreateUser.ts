@@ -22,7 +22,9 @@ const signupSchema = z.object({
 type SignupData = z.infer<typeof signupSchema>; 
 
 const createUser = async (userData: SignupData) => {
-    const resp = await axios.post(BASE_URL, userData); 
+    const resp = await axios.post(`${BASE_URL}/api/users/signup`, userData); 
+    console.log('running axios');
+    console.log(resp);
     return resp.data; 
 }
 export const useCreateUser = () => {
