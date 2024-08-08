@@ -9,15 +9,14 @@ const TextField = ({ containerPadding = "$4", ...props }: CustomInputProps) => {
   return (
     <YStack padding={containerPadding}>
       <Input
-        size='$4'
+        size="$2"
         borderWidth={1}
-        borderColor='$gray400'
-        borderRadius='$2'
-        paddingHorizontal='$3'        
-        placeholderTextColor='$gray500'
-        fontSize='$2'
-        backgroundColor='$background'
-        color='$color'
+        borderColor="$gray400"
+        borderRadius="$2"
+        paddingHorizontal="$3"
+        placeholderTextColor="$gray500"
+        backgroundColor="$background"
+        color="$color"
         {...props}
       />
     </YStack>

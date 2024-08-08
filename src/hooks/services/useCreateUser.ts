@@ -26,12 +26,7 @@ const createUser = async (userData: SignupData) => {
     return resp.data; 
 }
 export const useCreateUser = () => {
-    return useMutation<any, Error, SignupData>(createUser,
-        onSuccess: (data) => {
-            console.log('data-> userCreated successfully', data);
-        },
-        onError: (error)=> {
-            console.log(error); 
-        }
-    )
+    return useMutation<any, Error, SignupData>({
+     mutationFn:  createUser
+    })
 }
