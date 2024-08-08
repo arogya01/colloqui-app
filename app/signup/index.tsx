@@ -1,8 +1,8 @@
 import React from "react";
-import SignupForm from "../../src/modules/signup/index"
+import SignupForm from "../../src/modules/signup/index";
 
 const Signup = () => {
-  return <SignupForm />
+  return <SignupForm />;
 };
 
 export default Signup;
