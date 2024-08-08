@@ -5,6 +5,7 @@ import { createTamagui, TamaguiProvider } from "@tamagui/core";
 import { config } from "@tamagui/config/v3";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import appConfig from "../tamagui.config";
+import { SessionProvider } from "../src/context/AuthContextProvider";
 import { useFonts } from "@expo-google-fonts/inter";
 import Toast from "react-native-toast-message";
 import { View, Text } from "react-native";
@@ -40,8 +41,10 @@ export default function Layout() {
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
         <TamaguiProvider config={tamaguiConfig}>
-          <Slot />
-          <Toast />
+          <SessionProvider>
+            <Slot />
+            <Toast />
+          </SessionProvider>
         </TamaguiProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
