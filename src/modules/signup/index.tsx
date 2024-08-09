@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack, YStack, Button, Text } from "tamagui";
 import TextField from "../../components/TextField";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { colors } from "../../theme";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import * as z from "zod";
 import { SafeAreaView } from "react-native";
 import { useCreateUser } from "../../hooks/services/useCreateUser";
 import Toast from "react-native-toast-message";
+import Redirection from "../../components/Redirection";
 
 const signupSchema = z.object({
   email: z.string().email({
@@ -46,30 +47,31 @@ const SignupForm = () => {
       image: "",
     },
   });
-
   const { mutate, isPending } = useCreateUser();
-
-  console.log("why is signup not render");
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle form submission here
-    try {
-      mutate(data, {
-        onSuccess: (data) => {
-          Toast.show({
-            type: "success",
-            text1: "Success",
-            text2: "User created",
-          });
-        },
-      });
-    } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-      });
-    }
+
+    mutate(data, {
+      onSuccess: (data) => {
+        console.log("success data mutatoin");
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "User created, redirecting to Login",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 500);
+      },
+      onError: (error) => {
+        console.log("error occurred in signup", error);
+        Toast.show({
+          type: "error",
+          text1: "Error",
+        });
+      },
+    });
   };
 
   return (
@@ -252,7 +254,6 @@ const SignupForm = () => {
           </Stack>
         </YStack>
       </Stack>
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

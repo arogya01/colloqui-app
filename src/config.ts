@@ -1,3 +1,3 @@
 
 
-export const BASE_URL = "https://colloqui.onrender.com";
+export const BASE_URL = "https://dumdum12.azurewebsites.net";

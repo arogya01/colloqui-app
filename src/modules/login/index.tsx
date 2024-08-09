@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Stack, YStack, Button, Text, View } from "tamagui";
+import { Stack, YStack, Button, Text } from "tamagui";
 import TextField from "../../components/TextField";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { colors } from "../../theme";
 import { useLoginUser } from "../../hooks/services/useLoginUser";
+import { useSession } from "../../hooks/useSession";
+import Toast from "react-native-toast-message";
 
 const LoginForm = () => {
   const { mutate, isPending } = useLoginUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { signIn } = useSession();
   const handleSignIn = async () => {
     if (!email || !password) {
       // You might want to show an error message to the user here
@@ -21,8 +23,19 @@ const LoginForm = () => {
       mutate(
         { email, password },
         {
-          onSuccess: () => {
-            console.log("login success");
+          onSuccess: (response) => {
+            console.log("login success", response);
+            const { data: { accessToken = "" } = {} } = response || {};
+            console.log("accessToken is,", accessToken);
+            signIn(accessToken);
+            router.push("/chat");
+          },
+          onError: (error) => {
+            Toast.show({
+              type: "error",
+              text1: "Error occurred",
+              text2: error?.response?.data?.message || "",
+            });
           },
         }
       );
@@ -33,7 +46,6 @@ const LoginForm = () => {
   };
 
   const onEmailChange = (text: string) => {
-    console.log("email text", text);
     setEmail(text);
   };
 
