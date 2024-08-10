@@ -1,4 +1,4 @@
-import { Stack, Text } from "tamagui";
+import { Stack } from "tamagui";
 import { colors } from "../../theme";
 import ChatWidget from "./ChatWidget";
 import ChatSearch from "./ChatSearch";

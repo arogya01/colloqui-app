@@ -1,7 +1,6 @@
 import React from "react";
-import { XStack, YStack, Avatar, Text, styled } from "tamagui";
+import { XStack, YStack, Text, styled } from "tamagui";
 import { colors } from "../../theme";
-import { Check } from "@tamagui/lucide-icons";
 
 type ChatWidgetProps = {
   avatarUrl: string;
