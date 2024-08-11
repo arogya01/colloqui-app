@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "tamagui";
 import { useSession } from "../../../src/hooks/useSession";
 import { Redirect, Slot } from "expo-router";
+import { SocketContextProvider } from "../../../src/context/SocketContextProvider";
 
 const Chat = () => {
   const { session, isLoading } = useSession();
@@ -16,7 +17,11 @@ const Chat = () => {
     return <Redirect href="/" />;
   }
 
-  return <Slot />;
+  return (
+    <SocketContextProvider>
+      <Slot />
+    </SocketContextProvider>
+  );
 };
 
 export default Chat;
