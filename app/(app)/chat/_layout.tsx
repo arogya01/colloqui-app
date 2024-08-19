@@ -3,6 +3,7 @@ import { Text } from "tamagui";
 import { useSession } from "../../../src/hooks/useSession";
 import { Redirect, Slot } from "expo-router";
 import { SocketContextProvider } from "../../../src/context/SocketContextProvider";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const Chat = () => {
   const { session, isLoading } = useSession();
@@ -18,9 +19,11 @@ const Chat = () => {
   }
 
   return (
-    <SocketContextProvider>
-      <Slot />
-    </SocketContextProvider>
+    <SafeAreaView>
+      <SocketContextProvider>
+        <Slot />
+      </SocketContextProvider>
+    </SafeAreaView>
   );
 };
 

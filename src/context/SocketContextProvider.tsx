@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-import { BASE_URL } from "../config";
+import { WSS_URL } from "../config";
 import React from "react";
 
 const SocketContext = React.createContext<Socket | null>(null);
@@ -10,9 +10,8 @@ export function SocketContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const wsURL = `${BASE_URL}/api/chat`;
-  const socket = io(BASE_URL);
-
+  const wsURL = `${WSS_URL}/api/chat`;
+  const socket = io(wsURL);
   console.log("scoket connection", socket);
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
