@@ -19,18 +19,6 @@ export const ChatPageContainer = () => {
         message="https://youtu.be/rc_zVAS..."
         timestamp="Yesterday"
       />
-      <ChatWidget
-        avatarUrl="https://example.com/avatar.jpg"
-        name="Kunwar"
-        message="https://youtu.be/rc_zVAS..."
-        timestamp="Yesterday"
-      />
-      <ChatWidget
-        avatarUrl="https://example.com/avatar.jpg"
-        name="Arogya"
-        message="https://youtu.be/rc_zVAS..."
-        timestamp="Yesterday"
-      />
     </Stack>
   );
 };

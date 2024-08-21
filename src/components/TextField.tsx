@@ -3,6 +3,8 @@ import { Input, YStack, InputProps } from "tamagui";
 
 interface CustomInputProps extends InputProps {
   containerPadding?: string;
+  backgroundColor?: string;
+  color?: string;
 }
 
 const TextField = ({ containerPadding = "$4", ...props }: CustomInputProps) => {
@@ -15,8 +17,8 @@ const TextField = ({ containerPadding = "$4", ...props }: CustomInputProps) => {
         borderRadius="$2"
         paddingHorizontal="$3"
         placeholderTextColor="$gray500"
-        backgroundColor="$background"
-        color="$color"
+        backgroundColor={props.backgroundColor}
+        color={props.color}
         {...props}
       />
     </YStack>
