@@ -18,14 +18,6 @@ export const AuthContext = React.createContext<{
 export function SessionProvider(props: React.PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState("session");
 
-  console.log("session", session);
-  // need to push it down another layer, something related to Root Layout should be mounted. something of that sort.
-  // if (isLoading) {
-  //   return <Text>Loading...</Text>;
-  // }
-  if (session) {
-    router.replace("/chat");
-  }
 
   return (
     <AuthContext.Provider
