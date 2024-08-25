@@ -1,7 +1,5 @@
 import React from "react";
 import { useStorageState } from "../hooks/useStorageState";
-import { router } from "expo-router";
-import { Text } from "tamagui";
 
 export const AuthContext = React.createContext<{
   signIn: (accessToken: string) => void;

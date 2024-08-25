@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSession } from "../hooks/useSession";
 
 const SocketContext = React.createContext<WebSocket | null>(null);
 
@@ -9,8 +10,17 @@ export function SocketContextProvider({
 }) {
   const [ws, setWs] = useState<WebSocket | null>(null);
 
+  const options = {
+    headers: {
+      'Sec-WebSocket-Protocol': 'your-access-token'
+    }
+  };
+
+  const {session = ''} = useSession();
+  
+
   useEffect(() => {
-    const newWs = new WebSocket('wss://dumdum12.azurewebsites.net/api/chat');
+    const newWs = new WebSocket('wss://dumdum12.azurewebsites.net/api/colloqui/chat?id=22',session);
     setWs(newWs);
 
     console.log("WebSocket connection", newWs);
