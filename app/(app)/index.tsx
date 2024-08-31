@@ -1,6 +1,7 @@
 import React from "react";
-import { ChatPageContainer } from "../../src/modules/chat/ChatPageContainer";
+import Conversations from "../../src/modules/chat/components/Conversations"; 
+
 
 export default function ChatMech() {
-  return <ChatPageContainer />;
+  return <Conversations />; 
 }

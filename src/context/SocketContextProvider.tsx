@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { AppState, AppStateStatus } from "react-native";
 import { useSession } from "../hooks/useSession";
 
-const SocketContext = React.createContext<WebSocket | null>(null);
+// Define the shape of our context
+interface SocketContextType {
+  ws: WebSocket | null;
+  conversations: any[]; // Replace 'any' with your conversation type
+  fetchConversations: () => void;
+}
+
+const SocketContext = React.createContext<SocketContextType | null>(null);
 
 export function SocketContextProvider({
   children,
@@ -9,24 +17,23 @@ export function SocketContextProvider({
   children: React.ReactNode;
 }) {
   const [ws, setWs] = useState<WebSocket | null>(null);
+  const [conversations, setConversations] = useState<any[]>([]); // Replace 'any' with your conversation type
+  const { session = '' , userId = '' } = useSession();
+  const wsRef = useRef<WebSocket | null>(null);
 
-  const options = {
-    headers: {
-      'Sec-WebSocket-Protocol': 'your-access-token'
+  const connectWebSocket = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      console.log('WebSocket is already connected');
+      return;
     }
-  };
 
-  const {session = ''} = useSession();
-  
-
-  useEffect(() => {
-    const newWs = new WebSocket('wss://dumdum12.azurewebsites.net/api/colloqui/chat?id=22',session);
+    const newWs = new WebSocket('wss://dumdum12.azurewebsites.net/api/colloqui/chat?id=22', session);
+    wsRef.current = newWs;
     setWs(newWs);
-
-    console.log("WebSocket connection", newWs);
 
     newWs.onopen = () => {
       console.log('WebSocket is connected');
+      fetchConversations();
     };
 
     newWs.onerror = (error) => {
@@ -37,20 +44,55 @@ export function SocketContextProvider({
       console.log('WebSocket is closed');
     };
 
-    // Custom message handler
     newWs.onmessage = (event) => {
-      console.log('Received data:', event.data);
+      const data = JSON.parse(event.data);
+      console.log('Received data:', data);
+
+      if (data.type === 'FETCH_CONVERSATIONS') {
+        setConversations(data.data.conversations);
+      }
+      // Handle other message types as needed
     };
+  }, [session]);
+
+  const fetchConversations = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({
+        type: 'FETCH_CONVERSATIONS',
+        userId: userId
+      }));
+    } else {
+      console.log('WebSocket is not open. Cannot fetch conversations.');
+    }
+  }, []);
+
+  const handleAppStateChange = useCallback((nextAppState: AppStateStatus) => {
+    if (nextAppState === 'active') {
+      console.log('App has come to the foreground!');
+      connectWebSocket();
+    } else if (nextAppState === 'background') {
+      console.log('App has gone to the background!');
+      wsRef.current?.close();
+    }
+  }, [connectWebSocket]);
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener('change', handleAppStateChange);
+
+    // Initial connection
+    connectWebSocket();
 
     // Clean up on component unmount
     return () => {
-      newWs.close();
+      appStateSubscription.remove();
+      wsRef.current?.close();
     };
-  }, []);
+  }, [connectWebSocket, handleAppStateChange]);
 
   return (
-    <SocketContext.Provider value={ws}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={{ ws, conversations, fetchConversations }}>
+      {children}
+    </SocketContext.Provider>
   );
 }
-
 export default SocketContext;

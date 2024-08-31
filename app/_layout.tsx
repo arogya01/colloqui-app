@@ -1,6 +1,6 @@
 import React from "react";
 import { Slot } from "expo-router";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { createTamagui, TamaguiProvider } from "@tamagui/core";
 import { config } from "@tamagui/config/v3";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -26,17 +26,21 @@ export default function Layout() {
 
   if (!fontsLoaded && !fontError) {
     return (
+      <SafeAreaView>
       <View>
         <Text>Loading fonts...</Text>
       </View>
+      </SafeAreaView>
     );
   }
 
   if (fontError) {
     return (
+      <SafeAreaView>
       <View>
         <Text>Error loading fonts: {fontError.message}</Text>
       </View>
+      </SafeAreaView>
     );
   }
 

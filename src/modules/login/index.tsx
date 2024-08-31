@@ -25,12 +25,13 @@ const LoginForm = () => {
         {
           onSuccess: (response) => {
             console.log("login success", response);
-            const { data: { accessToken = "" } = {} } = response || {};
+            const { data: { accessToken = ""  , userId = ''} = {} } = response || {};
             console.log("accessToken is,", accessToken);
-            signIn(accessToken);
+            signIn(accessToken, userId);
             router.push("/chat");
           },
           onError: (error) => {
+            console.log('error.response', error);
             Toast.show({
               type: "error",
               text1: "Error occurred",
