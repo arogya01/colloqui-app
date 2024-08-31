@@ -13,6 +13,9 @@ import { View, Text } from "react-native";
 const tamaguiConfig = createTamagui({ ...config, ...appConfig });
 const queryClient = new QueryClient();
 
+if(__DEV__) {
+  import("../reactotron.config");
+}
 export default function Layout() {
   let [fontsLoaded, fontError] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
