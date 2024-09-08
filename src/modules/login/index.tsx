@@ -28,7 +28,7 @@ const LoginForm = () => {
             const { data: { accessToken = ""  , userId = ''} = {} } = response || {};
             console.log("accessToken is,", accessToken);
             signIn(accessToken, userId);
-            router.push("/chat");
+            router.replace("/");
           },
           onError: (error) => {
             console.log('error.response', error);
