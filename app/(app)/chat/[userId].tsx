@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { XStack, YStack, Text, Input, Button } from "tamagui";
+import { XStack, YStack, Text, Input, Button, Stack } from "tamagui";
 import { useSocketContext } from "../../../src/hooks/useSocketContext";
 import { useSession } from "../../../src/hooks/useSession";
 import { useRouter } from "expo-router";
@@ -19,15 +19,15 @@ const colors = {
 const MessageBubble = ({ message, isUser }) => (
   <XStack
     justifyContent={isUser ? "flex-end" : "flex-start"}
-    marginVertical={5}
-    paddingHorizontal={10}
+    marginVertical={4}
+    paddingHorizontal={16}
     background={colors.notQuiteBlack}
   >
     <YStack
       backgroundColor={isUser ? colors.primary : colors.lightGray}
       borderRadius={15}
       padding={10}
-      maxWidth="80%"
+      maxWidth="100%"
     >
       <Text color={isUser ? colors.primaryWhite : colors.primaryBlack}>
         {message.media.value}
@@ -36,7 +36,7 @@ const MessageBubble = ({ message, isUser }) => (
         color={isUser ? colors.primaryWhite : colors.primaryBlack}
         fontSize={10}
         opacity={0.7}
-        marginTop={5}
+        marginTop={2}
       >
         {new Date(message.createdAt).toLocaleTimeString([], {
           hour: "2-digit",
@@ -48,7 +48,7 @@ const MessageBubble = ({ message, isUser }) => (
 );
 
 const FallbackUI = () => (
-  <YStack flex={1} justifyContent="center" alignItems="center">
+  <YStack background={colors.primaryBlack} flex={1} justifyContent="center" alignItems="center">
     <Text color={colors.primaryWhite} fontSize={18} textAlign="center">
       No messages yet.{"\n"}Start the conversation!
     </Text>
@@ -57,21 +57,7 @@ const FallbackUI = () => (
 
 const MessagePage = ({ chatPartner = "Maa" }) => {
   const [message, setMessage] = useState("");
-  const [chats, setChats] = useState([
-    {
-      id: 6,
-      conversationId: 3,
-      senderId: 22,
-      createdAt: "2024-09-09T14:05:32.942Z",
-      media: {
-        id: 6,
-        type: "TEXT",
-        thumbnail: null,
-        messageId: 6,
-        value: "lol too",
-      },
-    },
-  ]); // This will be populated with chat messages
+  const [chats, setChats] = useState([]);
   const { userId } = useSession();
   const { createConversations, currConversation } = useSocketContext();
   const router = useRouter();
@@ -104,18 +90,12 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   };
 
   return (
-    <SafeAreaView>
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      > */}
-      <YStack
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        backgroundColor={colors.primaryBlack}
+    <Stack height="100%" backgroundColor={colors.notQuiteBlack}>   
+      <YStack        
+        justifyContent="space-between"      
+        height="100%"  
+        background={colors.primaryBlack}            
       >
-        {/* Header */}
         <XStack
           width="100%"
           height={60}
@@ -131,11 +111,8 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
           </Text>
         </XStack>
 
-        {/* Chat messages area or Fallback UI */}
-        <YStack width="100%" height={20} backgroundColor={colors.primaryBlack}>
-          <Text>lols</Text>
-        </YStack>
-        <YStack backgroundColor={colors.primaryBlack} height={120} flex={1}>
+        {/* Chat messages area or Fallback UI */}        
+        <YStack flex={1} backgroundColor={colors.primaryBlack}>
           {chats.length > 0 ? (
             <ScrollView
               ref={scrollViewRef}
@@ -154,16 +131,10 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
           ) : (
             <FallbackUI />
           )}
-          <Button onPress={sendMessage} backgroundColor={colors.primary}>
-            Send
-          </Button>
-          <Text color={colors.primaryBlack}>
-            Hey man, where the fuck are you??
-          </Text>
         </YStack>
 
         {/* Chat input - Always at the bottom */}
-        {/* <XStack
+        <XStack
             height={60}
             backgroundColor={colors.notQuiteBlack}
             alignItems="center"
@@ -183,10 +154,9 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
             <Button onPress={sendMessage} backgroundColor={colors.primary}>
               Send
             </Button>
-          </XStack> */}
+          </XStack>
       </YStack>
-      {/* </KeyboardAvoidingView> */}
-    </SafeAreaView>
+    </Stack>
   );
 };
 
