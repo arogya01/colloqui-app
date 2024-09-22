@@ -3,3 +3,16 @@
 export const BASE_URL = "https://dumdum12.azurewebsites.net";
 
 export const WSS_URL = "wss://dumdum12.azurewebsites.net";
+
+
+export const CHAT_EVENTS = {
+    CREATE_CONVERSATION: "CREATE_CONVERSATION",
+    SEND_MESSAGE: "SEND_MESSAGE",
+    FETCH_CONVERSATIONS: "FETCH_CONVERSATIONS",
+    FETCH_MESSAGES: "FETCH_MESSAGES",
+    CONVERSATION_CREATED: "CONVERSATION_CREATED",
+    MESSAGE_SENT: "MESSAGE_SENT",
+    ERROR:"ERROR", 
+    USER_COUNT_UPDATE: "USER_COUNT_UPDATE",
+  };
+  

@@ -3,5 +3,7 @@ import Conversations from "../../src/modules/chat/components/Conversations";
 
 
 export default function ChatMech() {
-  return <Conversations />; 
+  return(    
+    <Conversations />    
+    ); 
 }

@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import {  ScrollView, } from "react-native";
 import { XStack, YStack, Text, Input, Button, Stack } from "tamagui";
 import { useSocketContext } from "../../../src/hooks/useSocketContext";
-import { useSession } from "../../../src/hooks/useSession";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useGetProfile } from "../../../src/hooks/services/useGetProfile";
 
 const colors = {
   primary: "#7289DA",
@@ -58,7 +57,8 @@ const FallbackUI = () => (
 const MessagePage = ({ chatPartner = "Maa" }) => {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
-  const { userId } = useSession();
+  const {data : {userId = '' }  = {}} = useGetProfile();
+  console.log('userId from profile',userId);
   const { createConversations, currConversation } = useSocketContext();
   const router = useRouter();
 
