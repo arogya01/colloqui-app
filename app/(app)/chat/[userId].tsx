@@ -59,7 +59,7 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   const [chats, setChats] = useState([]);
   const {data : {userId = '' }  = {}} = useGetProfile();
   console.log('userId from profile',userId);
-  const { createConversations, currConversation } = useSocketContext();
+  const { createConversations, currConversation , fetchMessages, createMessage } = useSocketContext();
   const router = useRouter();
 
   const scrollViewRef = useRef();
@@ -75,17 +75,23 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
 
   const sendMessage = () => {
     if (message.trim() === "") return;
-
-    createConversations({
-      participants: [Number(userId), Number(22)],
-      message: {
-        senderId: Number(userId),
-        value: message,
-        valueType: "TEXT",
-      },
-      groupName: "",
-    });
-
+    console.log('currConversation',currConversation); 
+    if(currConversation){
+      createConversations({
+        participants: [Number(userId), Number(22)],
+        message: {
+          senderId: Number(userId),
+          value: message,
+          valueType: "TEXT",
+        },
+        groupName: "",
+      });
+    }
+    else{
+      createMessage({
+        
+      })
+    }
     setMessage("");
   };
 

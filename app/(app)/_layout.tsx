@@ -17,7 +17,6 @@ console.log('profile data',data);
     return(
     < SafeAreaView style={styles.container} > 
       < View style={styles.loadingContainer}>
-        < Text style={styles.loadingText}>Loading...</Text >
         < ActivityIndicator size="small" color="#0000ff" />
       </View>
       </SafeAreaView>

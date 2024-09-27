@@ -9,6 +9,8 @@ interface SocketContextType {
   ws: WebSocket | null;
   conversations: any[]; // Replace 'any' with your conversation type
   fetchConversations: () => void;
+  currConversations: Array<Record<string, unknown>>;
+  fetchMessages: (id:number) => void; 
   createConversations: ({participants, message, groupName}: {
     participants: number[],
   message: {
@@ -97,6 +99,24 @@ export function SocketContextProvider({
     }
   }
 
+  const createMessage = ({conversationId, message, senderId}: {
+    conversationId: number,
+    message: string,
+    senderId: number    
+  }) => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({
+        type: CHAT_EVENTS.SEND_MESSAGE,
+        conversationId, 
+        value: message, 
+        valueType: 'TEXT', 
+        senderId
+      }));
+    } else {
+      console.log('WebSocket is not open. Cannot create message.');
+    }
+  }
+
   const fetchConversations = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({
@@ -155,7 +175,7 @@ export function SocketContextProvider({
   }, [connectWebSocket, handleAppStateChange]);
 
   return (
-    <SocketContext.Provider value={{ ws, conversations, fetchConversations , createConversations , currConversation}}>
+    <SocketContext.Provider value={{ ws, conversations, fetchConversations , createConversations , currConversation, fetchMessages, createMessage}}>
       {children}
     </SocketContext.Provider>
   );
