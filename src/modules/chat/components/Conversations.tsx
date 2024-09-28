@@ -34,12 +34,7 @@ const router = useRouter();
       />
       <Button style={{marginTop:'auto', backgroundColor:"red"}} onPress={()=>{console.log('hey');
       router.push({ pathname : `/chat/10`, params: {
-        id:1, 
-        userName:"arogyanw12",
-        email:"arogyanew@gmail.com", 
-        phoneNumber:"8989123123",
-        bio:"imbecile",
-        image:"google.com"
+        conversationId:2     
       }})      
       }}>Start Conversation with new person</Button>
     </Stack>

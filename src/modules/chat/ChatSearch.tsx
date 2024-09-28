@@ -23,13 +23,10 @@ const Option = styled(XStack, {
 const ChatSearch = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');  
-
-
-
+  const [options, setOptions] = useState([]); 
   const {data: availableUsers, isLoading = false}  = useSearchUser({userName:searchTerm}); 
 
 
-  console.log('davailableUsersata',availableUsers);
   const handleFocus = () => {
     setIsFullScreen(true);
   };

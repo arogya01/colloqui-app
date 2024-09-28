@@ -3,6 +3,7 @@ import { AppState, AppStateStatus } from "react-native";
 import { useSession } from "../hooks/useSession";
 import { CHAT_EVENTS } from "../config";
 import { useGetProfile } from "../hooks/services/useGetProfile";
+import { transformMessages } from "../utils/dataFilterFn";
 
 // Define the shape of our context
 interface SocketContextType {
@@ -80,9 +81,21 @@ export function SocketContextProvider({
       }
 
       if(response.type === CHAT_EVENTS.FETCH_MESSAGES){
-        console.log('message recieved');
-        const {messages} = response.data;
-        setCurrConversation(messages);
+        console.log('message recieved',response);
+        const {messages = []} = response.data || {};
+        console.log('messages',messages);
+        const transformedMessages = transformMessages(messages);
+        setCurrConversation(transformedMessages);
+      }
+
+      if(response.type === CHAT_EVENTS.MESSAGE_SENT){
+        console.log('message sent',response); 
+        const {data : {
+          createdMessage : {
+            conversationId = '', 
+          } = {}
+        } = {}} = response || {};        
+        fetchMessages(conversationId);  
       }
       // Handle other message types as needed
     };
@@ -90,9 +103,10 @@ export function SocketContextProvider({
 
   const fetchMessages = (id:number) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
+      console.log('fetchMessages',id);
       wsRef.current.send(JSON.stringify({
         type: CHAT_EVENTS.FETCH_MESSAGES,
-        conversationId: id
+        conversationId: Number(id)
       }));
     } else {
       console.log('WebSocket is not open. Cannot fetch messages.');
