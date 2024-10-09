@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import {  ScrollView, } from "react-native";
 import { XStack, YStack, Text, Input, Button, Stack } from "tamagui";
 import { useSocketContext } from "../../../src/hooks/useSocketContext";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useGetProfile } from "../../../src/hooks/services/useGetProfile";
+import { Message } from "../../../src/utils/dataFilterFn";
 
 const colors = {
   primary: "#7289DA",
@@ -15,7 +16,7 @@ const colors = {
   lightGray: "#D3D3D3",
 };
 
-const MessageBubble = ({ message, isUser }) => (
+const MessageBubble = ({ message, isUser }: {message: Message, isUser:boolean}) => (
   <XStack
     justifyContent={isUser ? "flex-end" : "flex-start"}
     marginVertical={4}
@@ -29,7 +30,7 @@ const MessageBubble = ({ message, isUser }) => (
       maxWidth="100%"
     >
       <Text color={isUser ? colors.primaryWhite : colors.primaryBlack}>
-        {message.media.value}
+        {message?.media?.value}
       </Text>
       <Text
         color={isUser ? colors.primaryWhite : colors.primaryBlack}
@@ -61,24 +62,32 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   console.log('userId from profile',userId);
   const { createConversations, currConversation , fetchMessages, createMessage } = useSocketContext();
   const router = useRouter();
-
+  const local = useLocalSearchParams(); 
+  const {conversationId, participantUserId} = local; 
+  console.log({local});
   const scrollViewRef = useRef();
 
   console.log("currConversation", chats);
 
+  useEffect(()=>{
+    if(conversationId){
+      fetchMessages(conversationId); 
+    }
+  },[conversationId])
+
   useEffect(() => {
     // Populate chats with messages from currConversation when it changes
-    if (currConversation && currConversation.messages) {
-      setChats(currConversation.messages);
+    if (currConversation && currConversation?.length > 0) {
+      setChats(currConversation);
     }
   }, [currConversation]);
 
   const sendMessage = () => {
     if (message.trim() === "") return;
     console.log('currConversation',currConversation); 
-    if(currConversation){
+    if(chats.length === 0){
       createConversations({
-        participants: [Number(userId), Number(22)],
+        participants: [Number(userId), Number(participantUserId)],
         message: {
           senderId: Number(userId),
           value: message,
@@ -88,8 +97,10 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
       });
     }
     else{
-      createMessage({
-        
+      createMessage({        
+    conversationId, 
+    senderId: Number(userId),
+    value: message,
       })
     }
     setMessage("");
@@ -126,7 +137,7 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
                 scrollViewRef.current.scrollToEnd({ animated: true })
               }
             >
-              {chats.map((chat) => (
+              {chats.map((chat:Message) => (
                 <MessageBubble
                   key={chat.id}
                   message={chat}
