@@ -6,7 +6,7 @@ import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs  screenOptions={{ tabBarActiveTintColor: 'purple', headerShown: false  }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -15,10 +15,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="profile"
         options={{
-          title: 'Settings',
+          title: 'Profile',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+        }}
+      />
+       <Tabs.Screen
+        name="chat/[userId]"
+        options={{
+          href: null,
         }}
       />
     </Tabs>

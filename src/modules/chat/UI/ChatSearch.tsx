@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Image, Stack, XStack, YStack, Input, ScrollView, Text, styled } from "tamagui";
 import { Modal } from 'react-native';
-import { colors } from "../../theme";
-import SearchIcon from "../../../assets/search.svg";
-import CrossIcon from "./cross.svg";
-import { useSearchUser } from '../../hooks/services/useSearchUser';
+import { colors } from "../../../theme";
+// import SearchIcon from "../../../assets/search.svg";
+// import CrossIcon from "./cross.svg";
+import { useSearchUser } from '../../../hooks/services/useSearchUser';
 
 const FullScreenInput = styled(Input, {
   flex: 1,

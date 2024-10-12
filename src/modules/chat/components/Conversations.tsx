@@ -1,10 +1,11 @@
 import { Button, Stack } from "tamagui";
 import { colors } from "../../../theme";
-import ChatWidget from "../ChatWidget";
-import ChatSearch from "../ChatSearch";
 import { useEffect } from "react";
 import { useSocketContext } from "../../../hooks/useSocketContext";
 import { useRouter } from "expo-router";
+import ChatWidget from "../UI/ChatWidget";
+import ChatSearch from "../UI/ChatSearch";
+import { RenderConversationType } from "../../../utils/dataFilterFn";
 
 const Conversations = () => {
 
@@ -20,23 +21,16 @@ const router = useRouter();
   return (
     <Stack height="100%" backgroundColor={colors.notQuiteBlack}>
       <ChatSearch />
-      <ChatWidget
-        avatarUrl="https://example.com/avatar.jpg"
-        name="Mine"
-        message="https://youtu.be/rc_zVAS..."
-        timestamp="Yesterday"
-      />
-      <ChatWidget
-        avatarUrl="https://example.com/avatar.jpg"
-        name="Kartik"
-        message="https://youtu.be/rc_zVAS..."
-        timestamp="Yesterday"
-      />
-      <Button style={{marginTop:'auto', backgroundColor:"red"}} onPress={()=>{console.log('hey');
+      {
+        conversations?.map((conversation:RenderConversationType) => (
+          <ChatWidget key={conversation.id} {...conversation} />
+        ))
+      }
+      {/* <Button style={{marginTop:'auto', backgroundColor:"red"}} onPress={()=>{console.log('hey');
       router.push({ pathname : `/chat/10`, params: {
         conversationId:2     
       }})      
-      }}>Start Conversation with new person</Button>
+      }}>Start Conversation with new person</Button> */}
     </Stack>
   );
 };

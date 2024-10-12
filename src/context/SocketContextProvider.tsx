@@ -3,7 +3,7 @@ import { AppState, AppStateStatus } from "react-native";
 import { useSession } from "../hooks/useSession";
 import { CHAT_EVENTS } from "../config";
 import { useGetProfile } from "../hooks/services/useGetProfile";
-import { transformMessages } from "../utils/dataFilterFn";
+import { transformConversations, transformMessages } from "../utils/dataFilterFn";
 
 // Define the shape of our context
 interface SocketContextType {
@@ -70,7 +70,7 @@ export function SocketContextProvider({
       console.log('Received data:', response);
 
       if (response.type === 'FETCH_CONVERSATIONS') {
-        setConversations(response.data.conversations);
+        setConversations(transformConversations(response.data.conversations));
       }
 
       if(response.type === "CONVERSATION_CREATED"){

@@ -1,21 +1,8 @@
 
+import { ChatConversation , ChatMessage} from "../types";
 
 
-export type Message = {
-    conversationId: number,
-    createdAt: string,
-    id: number,
-    media: {
-        id: number,
-        messageId: number,
-        thumbnail: string | null,
-        type: string,
-        value: string
-    },
-    senderId: number
-}; 
-
-export const transformMessages = (message: Message[]) => {
+export const transformMessages = (message: ChatMessage[]) => {
     return message.map((message) => {
       const {conversationId, createdAt, id, media, senderId} = message; 
       return {
@@ -27,3 +14,24 @@ export const transformMessages = (message: Message[]) => {
       }
     }); 
   }
+
+ export type RenderConversationType = {
+    id: ChatConversation["id"];
+    name: ChatConversation["name"];
+    createdAt: ChatConversation["createdAt"];
+    updatedAt: ChatConversation["updatedAt"];
+    lastMessage: ChatMessage | undefined;
+  }
+
+export const transformConversations = (conversations: ChatConversation[]): RenderConversationType[] => {
+    return conversations.map((conversation) => {
+        const {id, name, createdAt, updatedAt, messages} = conversation; 
+        return {
+            id, 
+            name, 
+            createdAt, 
+            updatedAt, 
+            lastMessage: messages?.[messages?.length - 1]
+        }
+    })
+}
