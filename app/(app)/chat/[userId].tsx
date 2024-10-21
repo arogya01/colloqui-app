@@ -6,6 +6,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useGetProfile } from "../../../src/hooks/services/useGetProfile";
 import { FallbackUI } from "../../../src/modules/chat/components/FallbackUI";
 import { MessageBubble } from "../../../src/modules/chat/components/MessageBubble";
+import { colors } from "../../../src/theme";
 
 const MessagePage = ({ chatPartner = "Maa" }) => {
   const [message, setMessage] = useState("");
