@@ -25,13 +25,14 @@ const LoginForm = () => {
         {
           onSuccess: (response) => {
             console.log("login success", response);
-            const { data: { accessToken = ""  , userId = ''} = {} } = response || {};
+            const { data: { accessToken = "", userId = "" } = {} } =
+              response || {};
             console.log("accessToken is,", accessToken);
             signIn(accessToken, userId);
             router.replace("/");
           },
           onError: (error) => {
-            console.log('error.response', error);
+            console.log("error.response", error);
             Toast.show({
               type: "error",
               text1: "Error occurred",
@@ -111,12 +112,7 @@ const LoginForm = () => {
           </Button>
           <Button padding="$2" marginVertical="$2" height="40px">
             <Link href="/signup">
-              <Text>Signup Boss</Text>
-            </Link>
-          </Button>
-          <Button padding="$2" marginVertical="$2" height="40px">
-            <Link href="/chat">
-              <Text>Chat Screen</Text>
+              <Text>Signup</Text>
             </Link>
           </Button>
         </Stack>
