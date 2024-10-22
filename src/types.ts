@@ -15,6 +15,12 @@ export type ChatMessage = {
     createdAt: string;
     media: Media;
   };
+
+export type ChatParticipant = {
+    id: number;
+    userName: string;
+    image: string;
+}
   
  export type ChatConversation = {
     id: number;
@@ -22,4 +28,5 @@ export type ChatMessage = {
     createdAt: string;
     updatedAt: string;
     messages: ChatMessage[];
+    participants: ChatParticipant[];
   };

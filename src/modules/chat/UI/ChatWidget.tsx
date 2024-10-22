@@ -1,18 +1,20 @@
 import React from "react";
-import { XStack, YStack, Text, styled, Image } from "tamagui";
+import { XStack, YStack, Text, Image } from "tamagui";
 import { colors } from "../../../theme";
 import AvatarImg from "../../../../assets/avatar.png";
 import { RenderConversationType } from "../../../utils/dataFilterFn";
 import { useGetProfile } from "../../../hooks/services/useGetProfile";
-
-
+import { ChatParticipant } from "@src/types";
 
 const ChatWidget = (props: RenderConversationType) => {
-  const {name, lastMessage} = props; 
-  const {media,  senderId} = lastMessage || {};
-  const {data : {userId = '' }  = {}} = useGetProfile();
-  const {value} = media || {};
+  const { lastMessage, participants } = props;
+  const { media, senderId } = lastMessage || {};
+  const { data: { userId = "" } = {} } = useGetProfile();
+  const { value } = media || {};
   const isMessageFromUser = userId === senderId;
+  const participant = participants?.find(
+    (participant: ChatParticipant) => participant.id !== userId
+  );
   return (
     <XStack
       padding="$3"
@@ -20,16 +22,16 @@ const ChatWidget = (props: RenderConversationType) => {
       alignItems="center"
     >
       <XStack marginRight="$3">
-      <Image source={AvatarImg} width={40} height={40} />
+        <Image source={AvatarImg} width={40} height={40} />
       </XStack>
       <YStack flex={1}>
         <Text color="white" fontSize="$4" fontWeight="bold">
-          {name}
+          {participant?.userName}
         </Text>
         <XStack alignItems="center">
           {/* <Check size={12} color="$gray400" /> */}
           <Text color="white" fontSize="$2" flex={1} numberOfLines={1}>
-            {isMessageFromUser ? "You" : name} : {value}
+            {isMessageFromUser ? "You" : participant?.userName} : {value}
           </Text>
         </XStack>
       </YStack>
