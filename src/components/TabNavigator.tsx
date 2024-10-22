@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { colors } from '../theme';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { colors } from "../theme";
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   return (
@@ -13,12 +13,15 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             : options.title !== undefined
             ? options.title
             : route.name;
+        const { tabBarIcon } = options;
 
         const isFocused = state.index === index;
 
+        if (label === "Chat") return null;
+
         const onPress = () => {
           const event = navigation.emit({
-            type: 'tabPress',
+            type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
@@ -30,7 +33,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
         const onLongPress = () => {
           navigation.emit({
-            type: 'tabLongPress',
+            type: "tabLongPress",
             target: route.key,
           });
         };
@@ -44,9 +47,20 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={styles.tabBarItem}
           >
-            <Text style={{ color: isFocused ? colors.primary : colors.primaryBlack }}>
+            {typeof tabBarIcon === "function"
+              ? tabBarIcon({
+                  color: isFocused ? colors.primary : colors.primaryBlack,
+                  focused: isFocused,
+                  size: 20,
+                })
+              : null}
+            <Text
+              style={{
+                color: isFocused ? colors.primary : colors.primaryBlack,
+              }}
+            >
               {label}
             </Text>
           </TouchableOpacity>
@@ -56,16 +70,25 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   );
 }
 
-
 const styles = StyleSheet.create({
-  tabBar:{
-    position: 'absolute',
-    bottom:50, 
-    flexDirection: 'row',
-    justifyContent:'center', 
-    marginHorizontal:80, 
-    backgroundColor:colors.primaryWhite, 
-    borderRadius:100, 
-    padding:8    
-  }
-})
+  tabBar: {
+    position: "absolute",
+    bottom: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginHorizontal: 90,
+    backgroundColor: colors.primaryWhite,
+    borderRadius: 100,
+    padding: 8,
+    shadowColor: colors.primaryBlack,
+    shadowOffset: { width: 0, height: 10 },
+    shadowRadius: 10,
+    shadowOpacity: 0.1,
+  },
+  tabBarItem: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
+});
