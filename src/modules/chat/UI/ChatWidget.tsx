@@ -5,6 +5,7 @@ import AvatarImg from "../../../../assets/avatar.png";
 import { RenderConversationType } from "../../../utils/dataFilterFn";
 import { useGetProfile } from "../../../hooks/services/useGetProfile";
 import { ChatParticipant } from "@src/types";
+import { useRouter } from "expo-router";
 
 const ChatWidget = (props: RenderConversationType) => {
   const { lastMessage, participants } = props;
@@ -15,11 +16,22 @@ const ChatWidget = (props: RenderConversationType) => {
   const participant = participants?.find(
     (participant: ChatParticipant) => participant.id !== userId
   );
+
+  const router = useRouter();
+  const onChatWidgetClick = () => {
+    router.push({
+      pathname: `/chat/${participant?.id}`,
+      params: {
+        conversationId: participant?.id,
+      },
+    });
+  };
   return (
     <XStack
       padding="$3"
       backgroundColor={colors.notQuiteBlack}
       alignItems="center"
+      onClick={onChatWidgetClick}
     >
       <XStack marginRight="$3">
         <Image source={AvatarImg} width={40} height={40} />

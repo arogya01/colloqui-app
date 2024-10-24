@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, YStack, Button, Text } from "tamagui";
+import { Stack, YStack, Button, Text, Spinner } from "tamagui";
 import TextField from "../../components/TextField";
 import { Link, router } from "expo-router";
 import { colors } from "../../theme";
@@ -105,10 +105,17 @@ const LoginForm = () => {
             padding="$2"
             marginVertical="$2"
             height="40px"
+            opacity={isPending ? 0.8 : 1}
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
             onPress={handleSignIn}
             disabled={isPending}
           >
-            <Text fontSize={14}>{isPending ? "Signing in..." : "Sign in"}</Text>
+            <Text fontSize={14}>Sign in </Text>
+            {isPending ? (
+              <Spinner size="small" color={colors.primaryWhite} />
+            ) : null}
           </Button>
           <Button padding="$2" marginVertical="$2" height="40px">
             <Link href="/signup">
