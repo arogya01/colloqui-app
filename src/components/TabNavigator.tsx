@@ -53,16 +53,16 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               ? tabBarIcon({
                   color: isFocused ? colors.primary : colors.primaryBlack,
                   focused: isFocused,
-                  size: 20,
+                  size: 22,
                 })
               : null}
-            <Text
+            {/* <Text
               style={{
                 color: isFocused ? colors.primary : colors.primaryBlack,
               }}
             >
               {label}
-            </Text>
+            </Text> */}
           </TouchableOpacity>
         );
       })}
@@ -76,10 +76,11 @@ const styles = StyleSheet.create({
     bottom: 50,
     flexDirection: "row",
     justifyContent: "center",
-    marginHorizontal: 90,
+    marginHorizontal: 120,
     backgroundColor: colors.primaryWhite,
     borderRadius: 100,
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     shadowColor: colors.primaryBlack,
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
@@ -89,6 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: 4,
+    gap: 2,
   },
 });
