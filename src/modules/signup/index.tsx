@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, YStack, Button, Text } from "tamagui";
 import TextField from "../../components/TextField";
 import { Link, router } from "expo-router";
@@ -9,7 +9,6 @@ import * as z from "zod";
 import { SafeAreaView } from "react-native";
 import { useCreateUser } from "../../hooks/services/useCreateUser";
 import Toast from "react-native-toast-message";
-import Redirection from "../../components/Redirection";
 
 const signupSchema = z.object({
   email: z.string().email({
@@ -50,11 +49,8 @@ const SignupForm = () => {
   const { mutate, isPending } = useCreateUser();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     mutate(data, {
       onSuccess: (data) => {
-        console.log("success data mutatoin");
         Toast.show({
           type: "success",
           text1: "Success",
@@ -65,7 +61,6 @@ const SignupForm = () => {
         }, 500);
       },
       onError: (error) => {
-        console.log("error occurred in signup", error);
         Toast.show({
           type: "error",
           text1: "Error",

@@ -8,7 +8,7 @@ import { ChatParticipant } from "@src/types";
 import { useRouter } from "expo-router";
 
 const ChatWidget = (props: RenderConversationType) => {
-  const { lastMessage, participants } = props;
+  const { lastMessage, participants, id: conversationId } = props;
   const { media, senderId } = lastMessage || {};
   const { data: { userId = "" } = {} } = useGetProfile();
   const { value } = media || {};
@@ -22,7 +22,7 @@ const ChatWidget = (props: RenderConversationType) => {
     router.push({
       pathname: `/chat/${participant?.id}`,
       params: {
-        conversationId: participant?.id,
+        conversationId,
       },
     });
   };
@@ -31,7 +31,7 @@ const ChatWidget = (props: RenderConversationType) => {
       padding="$3"
       backgroundColor={colors.notQuiteBlack}
       alignItems="center"
-      onClick={onChatWidgetClick}
+      onPress={onChatWidgetClick}
     >
       <XStack marginRight="$3">
         <Image source={AvatarImg} width={40} height={40} />

@@ -7,4 +7,5 @@ export const colors = {
     crimson:"#DC143C", 
     tomato:"#FF6347", 
     notQuiteBlack:"#212121",
+    lightGray:"#D3D3D3"
 }

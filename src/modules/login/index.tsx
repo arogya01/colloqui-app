@@ -15,7 +15,6 @@ const LoginForm = () => {
   const handleSignIn = async () => {
     if (!email || !password) {
       // You might want to show an error message to the user here
-      console.log("Email and password are required");
       return;
     }
 
@@ -24,15 +23,12 @@ const LoginForm = () => {
         { email, password },
         {
           onSuccess: (response) => {
-            console.log("login success", response);
             const { data: { accessToken = "", userId = "" } = {} } =
               response || {};
-            console.log("accessToken is,", accessToken);
             signIn(accessToken, userId);
             router.replace("/");
           },
           onError: (error) => {
-            console.log("error.response", error);
             Toast.show({
               type: "error",
               text1: "Error occurred",

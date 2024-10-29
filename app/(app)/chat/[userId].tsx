@@ -12,7 +12,6 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
   const { data: { userId = "" } = {} } = useGetProfile();
-  console.log("userId from profile", userId);
   const {
     createConversations,
     currConversation,
@@ -22,10 +21,7 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   const router = useRouter();
   const local = useLocalSearchParams();
   const { conversationId, participantUserId } = local;
-  console.log({ local });
   const scrollViewRef = useRef();
-
-  console.log("currConversation", chats);
 
   useEffect(() => {
     if (conversationId) {
@@ -42,7 +38,6 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
 
   const sendMessage = () => {
     if (message.trim() === "") return;
-    console.log("currConversation", currConversation);
     if (chats.length === 0) {
       createConversations({
         participants: [Number(userId), Number(participantUserId)],
@@ -57,7 +52,7 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
       createMessage({
         conversationId,
         senderId: Number(userId),
-        value: message,
+        message,
       });
     }
     setMessage("");
