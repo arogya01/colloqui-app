@@ -3,6 +3,15 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { colors } from "../theme";
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  // Check if current route is a chat route
+  const currentRoute = state.routes[state.index];
+  const isChatRoute = currentRoute.name.includes("chat");
+
+  // Don't render the tab bar at all if we're in a chat route
+  if (isChatRoute) {
+    return null;
+  }
+
   return (
     <View style={styles.tabBar}>
       {state.routes.map((route, index) => {
