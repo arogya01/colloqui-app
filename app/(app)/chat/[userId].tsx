@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ScrollView } from "react-native";
-import { XStack, YStack, Text, Input, Button, Stack } from "tamagui";
+import { XStack, YStack, Text, Input, Stack } from "tamagui";
 import { useSocketContext } from "../../../src/hooks/useSocketContext";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useGetProfile } from "../../../src/hooks/services/useGetProfile";
 import { FallbackUI } from "../../../src/modules/chat/components/FallbackUI";
 import { MessageBubble } from "../../../src/modules/chat/components/MessageBubble";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { colors } from "../../../src/theme";
 
-const MessagePage = ({ chatPartner = "Maa" }) => {
+const MessagePage = () => {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
   const { data: { userId = "" } = {} } = useGetProfile();
@@ -20,7 +21,7 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
   } = useSocketContext();
   const router = useRouter();
   const local = useLocalSearchParams();
-  const { conversationId, participantUserId } = local;
+  const { conversationId, participantUserId, participantName } = local;
   const scrollViewRef = useRef();
 
   useEffect(() => {
@@ -72,11 +73,15 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
           alignItems="center"
           paddingHorizontal={10}
         >
-          <Button marginHorizontal="$2" onPress={() => router.back()}>
-            Go Back
-          </Button>
-          <Text color={colors.primaryWhite} fontSize={18}>
-            {chatPartner}
+          <FontAwesome
+            size={14}
+            color={colors.primaryWhite}
+            name="chevron-left"
+            marginHorizontal="$2"
+            onPress={() => router.back()}
+          />
+          <Text marginLeft="$2" color={colors.primaryWhite} fontSize={18}>
+            {participantName}
           </Text>
         </XStack>
 
@@ -115,14 +120,19 @@ const MessagePage = ({ chatPartner = "Maa" }) => {
             flex={1}
             value={message}
             onChangeText={setMessage}
+            borderRadius="$8"
+            paddingHorizontal="$4"
             placeholder="Type a message..."
             placeholderTextColor={colors.primaryWhite}
             color={colors.primaryWhite}
-            marginRight={10}
+            marginRight="$2"
           />
-          <Button onPress={sendMessage} backgroundColor={colors.primary}>
-            Send
-          </Button>
+          <FontAwesome
+            size={20}
+            name="paper-plane"
+            onPress={sendMessage}
+            color={colors.primaryWhite}
+          />
         </XStack>
       </YStack>
     </Stack>

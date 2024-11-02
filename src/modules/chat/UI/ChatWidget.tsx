@@ -23,6 +23,7 @@ const ChatWidget = (props: RenderConversationType) => {
       pathname: `/chat/${participant?.id}`,
       params: {
         conversationId,
+        participantName: participant?.userName,
       },
     });
   };
@@ -47,12 +48,6 @@ const ChatWidget = (props: RenderConversationType) => {
           </Text>
         </XStack>
       </YStack>
-
-      {/* <XStack alignItems="center" space="$2">
-        <Text color="white" fontSize="$1">
-          {timestamp}
-        </Text>
-      </XStack> */}
     </XStack>
   );
 };

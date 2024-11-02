@@ -1,8 +1,7 @@
-import { Button, Spinner, Stack } from "tamagui";
+import { Spinner, Stack } from "tamagui";
 import { colors } from "../../../theme";
 import { useEffect } from "react";
 import { useSocketContext } from "../../../hooks/useSocketContext";
-import { useRouter } from "expo-router";
 import ChatWidget from "../UI/ChatWidget";
 import ChatSearch from "../UI/ChatSearch";
 import { RenderConversationType } from "../../../utils/dataFilterFn";
@@ -10,7 +9,6 @@ import { RenderConversationType } from "../../../utils/dataFilterFn";
 const Conversations = () => {
   const { conversations, fetchConversations, isConversationLoading } =
     useSocketContext();
-  const router = useRouter();
 
   useEffect(() => {
     // Fetch conversations when the component mounts
