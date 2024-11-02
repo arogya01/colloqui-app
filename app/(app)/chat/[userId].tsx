@@ -21,7 +21,7 @@ const MessagePage = () => {
   } = useSocketContext();
   const router = useRouter();
   const local = useLocalSearchParams();
-  const { conversationId, participantUserId, participantName } = local;
+  const { conversationId, userId: participantUserId, participantName } = local;
   const scrollViewRef = useRef();
 
   useEffect(() => {

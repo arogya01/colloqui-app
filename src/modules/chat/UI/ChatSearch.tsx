@@ -38,8 +38,8 @@ const ChatSearch = () => {
     userName: searchTerm,
   });
 
-  console.log("availableUsers", availableUsers);
   const handleFocus = () => {
+    console.log("handleFocus");
     setIsFullScreen(true);
   };
 

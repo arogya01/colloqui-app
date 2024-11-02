@@ -105,7 +105,7 @@ export function SocketContextProvider({
       if (response.type === "CONVERSATION_CREATED") {
         console.log("conversation recieved");
         console.log("resp.data", response.data);
-        const { conversationId } = response.data;
+        const { id: conversationId } = response.data;
         fetchMessages(conversationId);
       }
 
@@ -128,6 +128,7 @@ export function SocketContextProvider({
   }, [session]);
 
   const fetchMessages = (id: number) => {
+    if (!id) return;
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       console.log("fetchMessages", id);
       wsRef.current.send(
