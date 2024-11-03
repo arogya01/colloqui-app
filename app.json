@@ -4,25 +4,37 @@
   "jsEngine": "hermes",
   "version": "1.0.0",
   "orientation": "portrait",
-  "icon": "./assets/icon.jpeg",
+  "icon": "./assets/icon.png",
   "userInterfaceStyle": "light",
   "splash": {
     "image": "./assets/splash.png",
     "resizeMode": "contain",
     "backgroundColor": "#ffffff"
   },
-  "assetBundlePatterns": ["**/*"],
+  "assetBundlePatterns": [
+    "**/*"
+  ],
   "ios": {
     "supportsTablet": true
   },
   "android": {
+    "package": "com.colloqui.app",
     "adaptiveIcon": {
-      "foregroundImage": "./assets/adaptive-icon.png",
+      "foregroundImage": "./assets/icon.png",
       "backgroundColor": "#ffffff"
     }
   },
   "web": {
     "favicon": "./assets/favicon.png"
   },
-  "plugins": ["expo-font", "expo-router", "expo-secure-store"]
+  "plugins": [
+    "expo-font",
+    "expo-router",
+    "expo-secure-store"
+  ],
+  "extra": {
+    "eas": {
+      "projectId": "9c892898-bfcf-4a83-ac70-18fab6c88d82"
+    }
+  }
 }
